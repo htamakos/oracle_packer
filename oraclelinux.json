@@ -1,0 +1,73 @@
+{
+  "_comment": "Oracle Linux 7",
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "boot_command": [
+        "<esc>",
+        " linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `kickstart_file` }}",
+        "<enter>"
+      ],
+      "disk_size": "{{ user `disk_size` }}",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "{{ user `guest_os_type` }}",
+      "hard_drive_interface": "{{ user `hard_drive_interface` }}",
+      "headless": "{{ user `headless` }}",
+      "http_directory": "http",
+      "iso_interface": "sata",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "{{ user `vboxmanage_memory` }}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{ user `vboxmanage_cpus` }}"],
+        ["modifyvm", "{{.Name}}", "--clipboard", "{{ user `vboxmanage_clipboard` }}"],
+        ["modifyvm", "{{.Name}}", "--accelerate3d", "{{ user `vboxmange_accelerate3d` }}"]
+      ],
+      "vm_name": "{{ user `vm_name` }}"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "box/oraclelinux7.box"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "environment_vars": [
+        "SSH_USER={{ user `ssh_username` }}",
+        "SSH_PASSWORD={{ user `ssh_password` }}",
+        "VERSION={{ .Version }}"
+      ],
+      "execute_command": "echo 'packer' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "scripts": [
+        "scripts/ssh.sh",
+        "scripts/ssd.sh",
+        "scripts/vboxguest.sh"
+      ]
+    }
+  ],
+  "variables": {
+    "ssh_username": "oracle",
+    "ssh_password": "oracle",
+    "iso_url": "/Users/tamakoshi/Downloads/vm_images/oraclelinux7_1_x86_64.iso",
+    "iso_checksum": "FA9666448E8A24AD6A4C7203575B66532FA833D7",
+    "iso_checksum_type": "sha1",
+    "disk_size": "25000",
+    "guest_os_type": "Oracle_64",
+    "hard_drive_interface": "sata",
+    "headless": "false",
+    "kickstart_file": "ks7.cfg",
+    "vboxmanage_memory": "2613",
+    "vboxmanage_cpus": "4",
+    "vboxmanage_clipboard": "bidirectional",
+    "vboxmange_accelerate3d": "on",
+    "vm_name": "oraclelinux7"
+  }
+}
