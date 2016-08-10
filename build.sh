@@ -1,6 +1,7 @@
 #!/bin/bash -euxC
 
-rm build/oraclelinux7 || true
-packer build oraclelinux.json
-vagarant box remove oraclelinux7 || true
-vagrant box add oraclelinux7 build/oraclelinux 
+public_key=`cat ~/.ssh/id_rsa.pub`
+rm box/oraclelinux7 || true
+packer build -var "authorized_public_key=${public_key}" oraclelinux.json 
+vagrant box remove oraclelinux7 || true
+vagrant box add box/oraclelinux7.box --name oraclelinux7 || true
