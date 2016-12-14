@@ -25,8 +25,7 @@
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "{{ user `vboxmanage_memory` }}"],
         ["modifyvm", "{{.Name}}", "--cpus", "{{ user `vboxmanage_cpus` }}"],
-        ["modifyvm", "{{.Name}}", "--clipboard", "{{ user `vboxmanage_clipboard` }}"],
-        ["modifyvm", "{{.Name}}", "--accelerate3d", "{{ user `vboxmange_accelerate3d` }}"]
+        ["modifyvm", "{{.Name}}", "--clipboard", "{{ user `vboxmanage_clipboard` }}"]
       ],
       "vm_name": "{{ user `vm_name` }}"
     }
@@ -34,7 +33,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "box/oraclelinux7.box"
+      "output": "box/oraclelinux68.box"
     }
   ],
   "provisioners": [
@@ -55,12 +54,12 @@
     }
   ],
   "variables": {
-    "ssh_username": "oracle",
-    "ssh_password": "oracle",
-    "iso_url": "/Users/tamakoshi/Downloads/vm_images/oraclelinux7_1_x86_64.iso",
-    "iso_checksum": "FA9666448E8A24AD6A4C7203575B66532FA833D7",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "iso_url": "/D://vboxes/oraclelinux6_8/V138414-01.iso",
+    "iso_checksum": "D9C0FBE32FE59B5A9FB9A1E1625F64D85A8201B6",
     "iso_checksum_type": "sha1",
-    "disk_size": "25000",
+    "disk_size": "50000",
     "guest_os_type": "Oracle_64",
     "hard_drive_interface": "sata",
     "headless": "false",
@@ -68,8 +67,7 @@
     "vboxmanage_memory": "2613",
     "vboxmanage_cpus": "4",
     "vboxmanage_clipboard": "bidirectional",
-    "vboxmange_accelerate3d": "on",
-    "vm_name": "oraclelinux7",
+    "vm_name": "oraclelinux68",
     "C": ""
   }
 }

@@ -1,6 +1,6 @@
 #!/bin/bash -euxC
 
-SSH_USER=${SSH_USER:-oracle}
+SSH_USER=${SSH_USER:-vagrant}
 SSH_USER_HOME=${SSH_USER_HOME:-/home/${SSH_USER}}
 
 VERSION=$(cat ${SSH_USER_HOME}/.vbox_version)
