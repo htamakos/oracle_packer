@@ -48,8 +48,7 @@
       "execute_command": "echo 'packer' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
       "scripts": [
         "scripts/ssh.sh",
-        "scripts/ssd.sh",
-        "scripts/vboxguest.sh"
+        "scripts/ssd.sh"
       ]
     }
   ],
