@@ -16,7 +16,6 @@
         "<enter>"
       ],
       "disk_size": "{{ user `disk_size` }}",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "{{ user `guest_os_type` }}",
       "hard_drive_interface": "{{ user `hard_drive_interface` }}",
       "headless": "{{ user `headless` }}",
