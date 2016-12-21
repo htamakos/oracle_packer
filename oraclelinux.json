@@ -1,5 +1,5 @@
 {
-  "_comment": "Oracle Linux 7",
+  "_comment": "Oracle Linux 68 non desktop",
   "builders": [
     {
       "type": "virtualbox-iso",
@@ -10,17 +10,18 @@
       "ssh_password": "{{ user `ssh_password` }}",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
-      "boot_command": [
-        "<esc>",
-        " linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `kickstart_file` }}",
-        "<enter>"
-      ],
       "disk_size": "{{ user `disk_size` }}",
       "guest_os_type": "{{ user `guest_os_type` }}",
       "hard_drive_interface": "{{ user `hard_drive_interface` }}",
       "headless": "{{ user `headless` }}",
       "http_directory": "http",
       "iso_interface": "sata",
+      "boot_command": [
+        "<esc>",
+        " linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `kickstart_file` }}",
+        "<enter>"
+      ],
+      "guest_additions_mode": "disable",
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "{{ user `vboxmanage_memory` }}"],
         ["modifyvm", "{{.Name}}", "--cpus", "{{ user `vboxmanage_cpus` }}"],
@@ -32,7 +33,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "box/oraclelinux68.box"
+      "output": "box/{{ user `outputbox_name` }}.box"
     }
   ],
   "provisioners": [
@@ -41,13 +42,14 @@
       "environment_vars": [
         "SSH_USER={{ user `ssh_username` }}",
         "SSH_PASSWORD={{ user `ssh_password` }}",
-        "VERSION={{ .Version }}",
-        "AUTHORIZED_PUBLICK_KEY={{ user `authorized_public_key` }}"
+        "PACKER_HTTP_PROXY={{ user `PACKER_HTTP_PROXY`  }}"
       ],
       "execute_command": "echo 'packer' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
       "scripts": [
         "scripts/ssh.sh",
-        "scripts/ssd.sh"
+        "scripts/ssd.sh",
+        "scripts/script.sh",
+        "scripts/psacct.sh"
       ]
     }
   ],
@@ -66,6 +68,7 @@
     "vboxmanage_cpus": "4",
     "vboxmanage_clipboard": "bidirectional",
     "vm_name": "oraclelinux68",
+    "outputbox_name": "oraclelinux68",
     "C": ""
   }
 }
