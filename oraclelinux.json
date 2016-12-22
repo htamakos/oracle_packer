@@ -27,7 +27,8 @@
         ["modifyvm", "{{.Name}}", "--cpus", "{{ user `vboxmanage_cpus` }}"],
         ["modifyvm", "{{.Name}}", "--clipboard", "{{ user `vboxmanage_clipboard` }}"]
       ],
-      "vm_name": "{{ user `vm_name` }}"
+      "vm_name": "{{ user `vm_name` }}",
+      "shutdown_command": "sudo shutdown -h now"
     }
   ],
   "post-processors": [
@@ -68,7 +69,6 @@
     "vboxmanage_cpus": "4",
     "vboxmanage_clipboard": "bidirectional",
     "vm_name": "oraclelinux68",
-    "outputbox_name": "oraclelinux68",
-    "C": ""
+    "outputbox_name": "oraclelinux68"
   }
 }
