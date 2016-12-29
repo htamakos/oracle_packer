@@ -64,7 +64,7 @@
     "guest_os_type": "Oracle_64",
     "hard_drive_interface": "sata",
     "headless": "false",
-    "kickstart_file": "ks7.cfg",
+    "kickstart_file": "ks68.cfg",
     "vboxmanage_memory": "2613",
     "vboxmanage_cpus": "4",
     "vboxmanage_clipboard": "bidirectional",
